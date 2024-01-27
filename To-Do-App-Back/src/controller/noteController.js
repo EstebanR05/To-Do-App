@@ -1,23 +1,37 @@
-const noteService = require('../services/noteService.js');
+import {
+    getNoteService,
+    getNoteByIdService,
+    createNoteService,
+    updateNoteService,
+    delteNoteService
+} from '../services/noteService.js';
 
-const getNoteController = async (req, res) => {
-    return await noteService.getNoteService();
+export const getNoteController = async (req, res) => {
+    const notes = await getNoteService();
+    res.send(notes).status(200);
 }
 
-const getNoteByIdController = async (req, res) => {
-    return await noteService.getNoteByIdService(req, res);
+export const getNoteByIdController = async (req, res) => {
+    let id = req.params.id;
+    const note = await getNoteByIdService(id);
+    res.send(note).status(200);
 }
 
-const createNoteController = async (req, res) => {
-    return await noteService.createNoteService(req, res);
+export const createNoteController = async (req, res) => {
+    const { task, detail } = req.body;
+    const noteCreated = await createNoteService(task, detail);
+    res.send(noteCreated).status(201);
 }
 
-const updateNoteController = async (req, res) => {
-    return await noteService.updateNoteService(req, res);
+export const updateNoteController = async (req, res) => {
+    let id = req.params.id;
+    const { task, detail } = req.body;
+    const updatedNote = await updateNoteService(id, task, detail);
+    res.send(updatedNote).status(201);
 }
 
-const delteNoteController = async (req, res) => {
-    return await noteService.delteNoteService(req, res);
+export const delteNoteController = async (req, res) => {
+    let id = req.params.id;
+    const deletedNote = await delteNoteService(id);
+    res.send(deletedNote).status(200);
 }
-
-module.exports = { getNoteController, getNoteByIdController, createNoteController, updateNoteController, delteNoteController }

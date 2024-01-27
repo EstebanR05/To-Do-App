@@ -1,23 +1,17 @@
 import express from 'express';
-import { getNote } from './src/schemas/dataBase.js';
+import { noteRouter } from './src/routes/noteRoute.js';
 
 const app = express();
+const port = 4000;
 
-app.get('/note', async (req, res) => {
-    const notes =  await getNote();
-    res.send(notes);
-})
-
-/*
-const routerNote = require('./src/routes/noteRoute.js');
-app.use('/api/', routerNote)
-*/
+app.use(express.json());
+app.use('/api', noteRouter);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('something broke!');
 });
 
-app.listen(4000, () => {
-    console.log('server listen in port: ', 4000);
+app.listen(port, () => {
+    console.log('server listen in port: ', port);
 });

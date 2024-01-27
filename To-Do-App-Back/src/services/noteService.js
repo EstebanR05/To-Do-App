@@ -1,15 +1,27 @@
-const dataBase = require('../schemas/dataBase.js');
+import {
+    getNote,
+    getNoteById,
+    createNote,
+    updateNote,
+    deleteNote
+} from '../schemas/dataBase.js';
 
-const getNoteService = async () => { 
-    return await dataBase.getNote();
+export const getNoteService = async () => {
+    return await getNote();
 }
 
-const getNoteByIdService = async (req, res) => { }
+export const getNoteByIdService = async (id) => {
+    return await getNoteById(id);
+}
 
-const createNoteService = async (req, res) => { }
+export const createNoteService = async (task, detail) => {
+    return await createNote(task, detail);
+}
 
-const updateNoteService = async (req, res) => { }
+export const updateNoteService = async (id, task, detail) => {
+    return await updateNote(id, task, detail);
+}
 
-const delteNoteService = async (req, res) => { }
-
-module.exports = { getNoteService, getNoteByIdService, createNoteService, updateNoteService, delteNoteService }
+export const delteNoteService = async (id) => {
+    return await deleteNote(id);
+}

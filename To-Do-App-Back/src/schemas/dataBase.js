@@ -23,34 +23,11 @@ export const createNote = async (task, detail) => {
 }
 
 export const updateNote = async (id, task, detail) => {
-
-    if (task || detail === '' && task || detail === undefined) {
-        return "you have error because don't send all params";
-    }
-
-    if (id == undefined || null || 0) {
-        return "Error, we can't do this action because you don't have id";
-    }
-
     const [result] = await pool.query('UPDATE notes SET task = ?, detail = ?  WHERE id = ?;', [task, detail, id]);
-
-    if (result.warningStatus != 0) {
-        return "Error, we can't do this action"
-    }
-
-    return 'ok';
+    return getNoteById(id);
 }
 
 export const deleteNote = async (id) => {
-    if (id == undefined || null || 0) {
-        return "Error, we can't do this action because you don't have id";
-    }
-
     const [result] = await pool.query('DELETE FROM notes WHERE id = ?', [id]);
-
-    if (result.warningStatus != 0) {
-        return "Error, we can't do this action"
-    }
-
     return 'ok';
 }

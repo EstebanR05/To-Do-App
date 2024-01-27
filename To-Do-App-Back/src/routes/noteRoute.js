@@ -1,13 +1,17 @@
-const express = require('express');
-const noteController = require('../controller/noteController.js');
+import express from 'express';
+import {
+    getNoteController,
+    getNoteByIdController,
+    createNoteController,
+    updateNoteController,
+    delteNoteController
+} from '../controller/noteController.js';
 
-const router = express.Router();
+export const noteRouter = express.Router();
 
-router
-    .get('/note', noteController.getNoteController)
-    .get('/note/:id', noteController.getNoteByIdController)
-    .post('/note', noteController.createNoteController)
-    .put('/note/:id', noteController.updateNoteController)
-    .delete('/note/:id', noteController.delteNoteController);
-
-module.exports = router;
+noteRouter
+    .get('/note', getNoteController)
+    .get('/note/:id', getNoteByIdController)
+    .post('/note', createNoteController)
+    .put('/note/:id', updateNoteController)
+    .delete('/note/:id', delteNoteController);
